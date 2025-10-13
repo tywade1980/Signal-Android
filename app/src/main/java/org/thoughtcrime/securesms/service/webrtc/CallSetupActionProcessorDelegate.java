@@ -88,6 +88,13 @@ public class CallSetupActionProcessorDelegate extends WebRtcActionProcessor {
       webRtcInteractor.setDefaultAudioDevice(activePeer.getId(), SignalAudioManager.AudioDevice.EARPIECE, false);
     }
 
+    // Check if AI assistant should play greeting for outgoing call
+    CallAssistantManager assistant = webRtcInteractor.getCallAssistantManager();
+    if (assistant.shouldHandleOutgoingCall() && currentState.getCallInfoState().getCallState() == WebRtcViewModel.State.CALL_CONNECTED) {
+      Log.i(tag, "AI Assistant enabled - playing outgoing call greeting");
+      assistant.playOutgoingCallGreeting();
+    }
+
     return currentState;
   }
 

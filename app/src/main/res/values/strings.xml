@@ -8841,5 +8841,11 @@
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">Add a question</string>
 
+    <!-- AI Call Assistant -->
+    <!-- Default greeting message spoken by AI assistant when answering calls -->
+    <string name="CallAssistant__default_greeting">Hello, I will be right with you. Please hold.</string>
+    <!-- Description for AI Call Assistant feature -->
+    <string name="CallAssistant__feature_description">AI Call Assistant can automatically answer calls on your behalf and inform callers that you will be available shortly.</string>
+
     <!-- EOF -->
 </resources>

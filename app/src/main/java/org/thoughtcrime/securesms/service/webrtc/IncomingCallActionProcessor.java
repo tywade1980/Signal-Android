@@ -218,6 +218,16 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
     webRtcInteractor.setCallInProgressNotification(TYPE_INCOMING_RINGING, activePeer, isRemoteVideoOffer);
     webRtcInteractor.registerPowerButtonReceiver();
 
+    // Check if AI assistant should auto-answer the call
+    CallAssistantManager assistant = webRtcInteractor.getCallAssistantManager();
+    if (assistant.shouldAutoAnswerIncomingCall()) {
+      Log.i(TAG, "AI Assistant enabled - auto-answering incoming call");
+      // Auto-accept the call with audio only
+      currentState = handleAcceptCall(currentState, false);
+      // Play the AI greeting message after accepting
+      assistant.playIncomingCallGreeting();
+    }
+
     return currentState.builder()
                        .changeCallInfoState()
                        .callState(WebRtcViewModel.State.CALL_INCOMING)
