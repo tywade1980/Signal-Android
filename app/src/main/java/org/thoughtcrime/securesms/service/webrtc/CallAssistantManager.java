@@ -18,6 +18,31 @@ import java.util.Locale;
  * Manages AI call assistant functionality for handling inbound and outbound calls
  * on behalf of the user. The assistant can automatically answer calls and provide
  * a greeting message to inform callers that the user will be available shortly.
+ * 
+ * <p>Key Features:</p>
+ * <ul>
+ *   <li>Auto-answers incoming calls when enabled</li>
+ *   <li>Plays customizable greeting message using Text-to-Speech</li>
+ *   <li>Handles both inbound and outbound calls</li>
+ *   <li>Does not require additional permissions</li>
+ *   <li>Builds upon existing Signal telecom integration</li>
+ * </ul>
+ * 
+ * <p>Usage:</p>
+ * <pre>
+ * // Enable the AI assistant
+ * CallAssistantManager assistant = webRtcInteractor.getCallAssistantManager();
+ * assistant.setEnabled(true);
+ * 
+ * // The assistant will now automatically:
+ * // 1. Auto-answer incoming calls
+ * // 2. Play greeting message for incoming calls
+ * // 3. Play greeting message when outgoing calls connect
+ * </pre>
+ * 
+ * <p>The AI assistant is disabled by default and must be explicitly enabled.
+ * It integrates with IncomingCallActionProcessor and CallSetupActionProcessorDelegate
+ * to provide seamless call handling without modifying the existing telecom service.</p>
  */
 public class CallAssistantManager {
 
