@@ -2,16 +2,13 @@ package org.thoughtcrime.securesms.service.webrtc;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.keyvalue.SignalStore;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -51,7 +48,7 @@ public class CallAssistantManager {
   
   private final Context context;
   private TextToSpeech textToSpeech;
-  private boolean isInitialized = false;
+  private volatile boolean isInitialized = false;
   private boolean isEnabled = false;
 
   public CallAssistantManager(@NonNull Context context) {
@@ -123,11 +120,10 @@ public class CallAssistantManager {
     Log.i(TAG, "Playing AI greeting for incoming call");
     String greeting = getGreetingMessage();
     
-    HashMap<String, String> params = new HashMap<>();
-    params.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_VOICE_CALL));
-    params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "incoming_call_greeting");
+    Bundle params = new Bundle();
+    params.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_VOICE_CALL);
     
-    textToSpeech.speak(greeting, TextToSpeech.QUEUE_FLUSH, params);
+    textToSpeech.speak(greeting, TextToSpeech.QUEUE_FLUSH, params, "incoming_call_greeting");
   }
 
   /**
@@ -142,11 +138,10 @@ public class CallAssistantManager {
     Log.i(TAG, "Playing AI greeting for outgoing call");
     String greeting = getGreetingMessage();
     
-    HashMap<String, String> params = new HashMap<>();
-    params.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_VOICE_CALL));
-    params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "outgoing_call_greeting");
+    Bundle params = new Bundle();
+    params.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_VOICE_CALL);
     
-    textToSpeech.speak(greeting, TextToSpeech.QUEUE_FLUSH, params);
+    textToSpeech.speak(greeting, TextToSpeech.QUEUE_FLUSH, params, "outgoing_call_greeting");
   }
 
   /**
