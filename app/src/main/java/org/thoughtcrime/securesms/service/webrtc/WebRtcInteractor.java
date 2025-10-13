@@ -38,6 +38,7 @@ public class WebRtcInteractor {
   private final CameraEventListener            cameraEventListener;
   private final GroupCall.Observer             groupCallObserver;
   private final AppForegroundObserver.Listener foregroundListener;
+  private final CallAssistantManager           callAssistantManager;
 
   public WebRtcInteractor(@NonNull Context context,
                           @NonNull SignalCallManager signalCallManager,
@@ -52,6 +53,7 @@ public class WebRtcInteractor {
     this.cameraEventListener = cameraEventListener;
     this.groupCallObserver   = groupCallObserver;
     this.foregroundListener  = foregroundListener;
+    this.callAssistantManager = new CallAssistantManager(context);
   }
 
   @NonNull Context getContext() {
@@ -212,5 +214,9 @@ public class WebRtcInteractor {
 
   public void sendGroupCallNotAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing) {
     signalCallManager.sendGroupCallNotAcceptedCallEventSyncMessage(remotePeer, isOutgoing);
+  }
+
+  @NonNull CallAssistantManager getCallAssistantManager() {
+    return callAssistantManager;
   }
 }
